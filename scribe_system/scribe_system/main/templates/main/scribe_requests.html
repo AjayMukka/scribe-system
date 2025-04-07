@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scribe Requests</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #6A11CB, #2575FC);
+            font-family: 'Roboto', sans-serif;
+            padding: 30px 0;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        .card p {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        .card p strong {
+            color: #6A11CB;
+        }
+        .btn {
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+            transform: scale(1.05);
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Scribe Requests</h1>
+
+        {% if scribe_requests %}
+            <div class="row">
+                {% for request in scribe_requests %}
+                    {% if request.Is_accepted == False %}
+                        <div class="col-md-4">
+                            <div class="card">
+                                <p><strong>Full Name:</strong> {{ request.full_name }}</p>
+                                <p><strong>Languages:</strong> {{ request.languages }}</p>
+                                <p><strong>Exam Name:</strong> {{ request.exam_name }}</p>
+                                <p><strong>Course:</strong> {{ request.course }}</p>
+                                <p><strong>Subject:</strong> {{ request.subject }}</p>
+                                <p><strong>Exam Center:</strong> {{ request.exam_center }}</p>
+                                <p><strong>Exam Date:</strong> {{ request.exam_date }}</p>
+
+                                <!-- Accept button wrapped inside a form -->
+                                <form method="post" action="{% url 'accept_request' request.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-success">Accept</button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-center">No scribe requests available.</p>
+        {% endif %}
+
+        <div class="text-center mt-4">
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

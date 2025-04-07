@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register as a Scribe - Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #6A11CB, #2575FC);
+            color: #333;
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+        }
+        .form-container h2 {
+            color: #6A11CB;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .form-container input {
+            height: 50px;
+            border-radius: 10px;
+            font-size: 16px;
+            padding: 0 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            transition: border-color 0.3s ease;
+        }
+        .form-container input:focus {
+            border-color: #6A11CB;
+            box-shadow: 0 0 10px rgba(106, 17, 203, 0.3);
+        }
+        .form-container button {
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            background-color: #6A11CB;
+            border: none;
+            transition: transform 0.3s, background-color 0.3s;
+            color: white;
+            width: 100%;
+        }
+        .form-container button:hover {
+            transform: scale(1.05);
+            background-color: #4E0FA1;
+        }
+        .register-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .register-link a {
+            color: #6A11CB;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .register-link a:hover {
+            color: #4E0FA1;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Login to Register as a Scribe</h2>
+        <form method="POST" action="{% url 'register_login' %}?next=/scribe_requests/">
+            {% csrf_token %}
+            
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" name="email" required class="form-control">
+            
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" name="password" required class="form-control">
+            
+            <button type="submit">Login</button>
+        </form>
+        <p class="register-link">Don't have an account? <a href="{% url 'scribe_register' %}">Register here</a>.</p>
+    </div>
+    
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

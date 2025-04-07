@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Scribe</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #6A11CB, #2575FC);
+            color: #333;
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
+        }
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            max-width: 600px;
+            margin: auto;
+        }
+        .form-container input {
+            height: 50px;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        .form-container button {
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            background-color: #6A11CB;
+            border: none;
+            transition: transform 0.3s, background-color 0.3s;
+            color: white;
+        }
+        .form-container button:hover {
+            transform: scale(1.05);
+            background-color: #4E0FA1;
+        }
+        .form-container h2 {
+            color: #6A11CB;
+            font-weight: bold;
+        }
+        .form-container .btn-danger {
+            background-color: #FF4B4B;
+            border: none;
+        }
+        .form-container .btn-danger:hover {
+            background-color: #CC0000;
+        }
+        .feedback {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .feedback.success {
+            color: green;
+        }
+        .feedback.error {
+            color: red;
+        }
+    </style>
+</head>
+<body class="d-flex align-items-center justify-content-center">
+    <div class="form-container">
+        <h2 class="text-center mb-4">Request a Scribe</h2>
+        <form method="post" action="/request_scribe/">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="full_name" class="form-label">Full Name</label>
+                <input type="text" id="full_name" name="full_name" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="languages" class="form-label">Medium</label>
+                <input type="text" id="languages" name="languages" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="exam_name" class="form-label">Exam Name</label>
+                <input type="text" id="exam_name" name="exam_name" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="course" class="form-label">Course</label>
+                <input type="text" id="course" name="course" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="subject" class="form-label">Subject</label>
+                <input type="text" id="subject" name="subject" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="exam_center" class="form-label">Exam Center</label>
+                <input type="text" id="exam_center" name="exam_center" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="exam_date" class="form-label">Exam Date</label>
+                <input type="date" id="exam_date" name="exam_date" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 mb-3">Request Scribe</button>
+        </form>
+
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger w-100">Logout</button>
+        </form>
+
+        {% if success %}
+            <p class="feedback success">Scribe requested successfully!</p>
+        {% elif error %}
+            <p class="feedback error">There was an error processing your request.</p>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

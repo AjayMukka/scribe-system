@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #6A11CB, #2575FC);
+            color: #333;
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
+        }
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            max-width: 500px;
+            margin: auto;
+        }
+        .form-container input {
+            height: 50px;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        .form-container button {
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            background-color: #6A11CB;
+            border: none;
+            transition: transform 0.3s, background-color 0.3s;
+            color: white;
+        }
+        .form-container button:hover {
+            transform: scale(1.05);
+            background-color: #4E0FA1;
+        }
+        .register-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .register-link a {
+            color: #6A11CB;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .register-link a:hover {
+            color: #4E0FA1;
+            text-decoration: underline;
+        }
+        .form-container h2 {
+            color: #6A11CB;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="d-flex align-items-center justify-content-center">
+    <div class="form-container">
+        <h2 class="text-center mb-4">Login</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email" class="form-control" value="{{ request.POST.email }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" id="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+        <div class="register-link">
+            <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
